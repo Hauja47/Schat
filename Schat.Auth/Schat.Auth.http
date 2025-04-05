@@ -1,0 +1,6 @@
+@Schat.Auth_HostAddress = http://localhost:5205
+
+GET {{Schat.Auth_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

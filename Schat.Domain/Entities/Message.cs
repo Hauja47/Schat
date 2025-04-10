@@ -8,10 +8,14 @@ namespace Schat.Domain.Entities
 {
     public class Message : BaseEntity
     {
-        public Guid UserId { get; set; }
+        public Guid UserInfoId { get; set; }
+        
+        public required UserInfo UserInfo { get; set; }
 
         public Guid ChannelId { get; set; }
+        
+        public required Channel Channel { get; set; }
 
-        public string Content { get; set; }
+        public required string Content { get; set; }
     }
 }

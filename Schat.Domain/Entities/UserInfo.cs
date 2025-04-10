@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace Schat.Domain.Entities
 {
-    public class User : BaseEntity
+    public class UserInfo : BaseEntity
     {
         public Guid Id { get; set; }
 
-        public string Username { get; set; }
+        public required string IdentityId { get; set; }
+        
+        public required string FullName { get; set; }
 
         public IEnumerable<Channel>? JoinedChannels { get; set; }
     }

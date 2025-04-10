@@ -1,9 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using NodaTime;
 using Schat.Domain.Entities;
 
-namespace Schat.Infrastructure.EntityConfigurations
+namespace Schat.Infrastructure.Database.EntityConfiguration
 {
     public abstract class BaseEntityConfiguration<T> : IEntityTypeConfiguration<T>
         where T : BaseEntity
@@ -12,7 +11,6 @@ namespace Schat.Infrastructure.EntityConfigurations
         {
             builder
                 .Property(e => e.CreatedDate)
-                .HasDefaultValue(SystemClock.Instance.GetCurrentInstant().InUtc())
                 .ValueGeneratedOnAdd();
 
             builder

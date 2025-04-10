@@ -10,8 +10,8 @@ namespace Schat.Domain.Entities
     {
         public Guid Id { get; set; }
 
-        public string Name { get; set; }
+        public required string Name { get; set; }
 
-        public IEnumerable<User> Members { get; set; }
+        public required IEnumerable<UserInfo> Members { get; set; }
     }
 }

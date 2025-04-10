@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Schat.Domain.Entities
 {
-    public class BaseEntity
+    public abstract class BaseEntity
     {
         public Instant CreatedDate { get; set; }
 

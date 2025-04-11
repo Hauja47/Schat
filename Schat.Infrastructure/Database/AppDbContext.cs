@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Schat.Domain.Entities;
-using System.Reflection;
+﻿using System.Reflection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Schat.Domain.Entities;
 
 namespace Schat.Infrastructure.Database
 {

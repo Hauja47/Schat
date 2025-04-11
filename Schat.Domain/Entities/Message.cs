@@ -4,18 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Schat.Domain.Entities
+namespace Schat.Domain.Entities;
+
+using Enum;
+
+public class Message : BaseEntity
 {
-    public class Message : BaseEntity
-    {
-        public Guid UserInfoId { get; set; }
+    public Guid UserInfoId { get; set; }
         
-        public required UserInfo UserInfo { get; set; }
+    public required UserInfo UserInfo { get; set; }
 
-        public Guid ChannelId { get; set; }
+    public Guid ChannelId { get; set; }
         
-        public required Channel Channel { get; set; }
+    public required Channel Channel { get; set; }
 
-        public required string Content { get; set; }
-    }
+    public required string Content { get; set; }
+        
+    public MessageStatus MessageStatus { get; set; }
 }

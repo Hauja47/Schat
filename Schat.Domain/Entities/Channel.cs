@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Schat.Domain.Entities
+namespace Schat.Domain.Entities;
+
+public class Channel: BaseEntity
 {
-    public class Channel: BaseEntity
-    {
-        public Guid Id { get; set; }
+    public Guid Id { get; set; }
 
-        public required string Name { get; set; }
+    public required string Name { get; set; }
 
-        public required IEnumerable<UserInfo> Members { get; set; }
-    }
+    public required IEnumerable<UserInfo> Members { get; set; }
 }

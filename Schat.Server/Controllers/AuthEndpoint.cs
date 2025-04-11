@@ -27,7 +27,6 @@ public static class AuthEndpoint
         var user = new IdentityUser
         {
             Email = registerRequest.Email,
-            UserName = registerRequest.FullName
         };
             
         var result = await userManager.CreateAsync(user, registerRequest.Password);

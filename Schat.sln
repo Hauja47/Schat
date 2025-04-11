@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schat.Application", "Schat.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schat.Domain", "Schat.Domain\Schat.Domain.csproj", "{4E088E3F-A4DE-4EDB-A6AA-B70767F9C299}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schat.Common", "Schat.Common\Schat.Common.csproj", "{FF8A9AB0-F282-4062-8219-40D92F1FF507}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{4E088E3F-A4DE-4EDB-A6AA-B70767F9C299}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E088E3F-A4DE-4EDB-A6AA-B70767F9C299}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E088E3F-A4DE-4EDB-A6AA-B70767F9C299}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF8A9AB0-F282-4062-8219-40D92F1FF507}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF8A9AB0-F282-4062-8219-40D92F1FF507}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF8A9AB0-F282-4062-8219-40D92F1FF507}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF8A9AB0-F282-4062-8219-40D92F1FF507}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +61,7 @@ Global
 		{7ADA51A6-5345-461F-8EF1-59FBDD412E49} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{D474FC25-4ECA-4CA3-9398-334D2A0DDA72} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{4E088E3F-A4DE-4EDB-A6AA-B70767F9C299} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{FF8A9AB0-F282-4062-8219-40D92F1FF507} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4CF38A99-B87F-416E-B44B-F8BA95D925FA}

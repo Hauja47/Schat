@@ -28,6 +28,7 @@
     <ProjectReference Include="..\schat.client\schat.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+    <ProjectReference Include="..\Schat.Common\Schat.Common.csproj" />
     <ProjectReference Include="..\Schat.Infrastructure\Schat.Infrastructure.csproj" />
   </ItemGroup>
 

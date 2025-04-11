@@ -4,15 +4,15 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Schat.Common.Configuration;
 using Schat.Infrastructure.Database;
-using Schat.Server.Config;
 using Schat.Server.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.Configure<Jwt>(builder.Configuration.GetSection("Jwt"));
+builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection("JwtConfig"));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -57,13 +57,14 @@ builder.Services
         };
     });
 
-builder.Services.AddAuthorization(options =>
-{
-    options.FallbackPolicy = new AuthorizationPolicyBuilder()
-        .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
-        .RequireAuthenticatedUser()
-        .Build();
-});
+// builder.Services.AddAuthorization(options =>
+// {
+//     options.FallbackPolicy = new AuthorizationPolicyBuilder()
+//         .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+//         .RequireAuthenticatedUser()
+//         .Build();
+// });
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -87,12 +88,18 @@ app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapGroup("/api");
+
 app.MapControllers();
-app
-    .MapAuthEndPoint();
 // app
 //     .MapGroup("/api/auth")
 //     .MapIdentityApi<IdentityUser>();
+
+app
+    .MapGroup("/auth")
+    .MapAuthEndpoint();
+
+
 
 app.MapFallbackToFile("/index.html");
 

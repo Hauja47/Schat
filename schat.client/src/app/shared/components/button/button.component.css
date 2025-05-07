@@ -1,0 +1,31 @@
+button {
+  --button_radius: 0.75em;
+  --button_border-color: var(--ctp-mocha-base);
+  cursor: pointer;
+  padding: 0;
+  font-size: 16px;
+  background-color: var(--button_border-color);
+  color: var(--ctp-latte-text);
+  border: none;
+  border-radius: var(--button_radius);
+}
+
+.btn {
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 0.75em 1.75em;
+  background: var(--ctp-latte-crust);
+  border-radius: var(--button_radius);
+  border: 0.175em solid var(--button_border-color);
+  transform: translateY(-0.4em);
+  transition: transform 75ms ease-in-out;
+}
+
+button:hover .btn {
+  transform: translateY(-0.44em);
+}
+
+button:active .btn {
+  transform: translateY(0);
+}
+

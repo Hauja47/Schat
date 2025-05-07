@@ -1,0 +1,24 @@
+.input-container {
+  --input-container_border-radius: 0.75em;
+  background-color: var(--ctp-mocha-base);
+  max-width: fit-content;
+  border-radius: var(--input-container_border-radius);
+}
+
+.input-container input {
+  font-size: 16px;
+  padding: 0.5em 0.75em;
+  background-color: var(--ctp-latte-crust);
+  color: var(--ctp-latte-text);
+  border-radius: var(--input-container_border-radius);
+  transform: translateY(-0.4em);
+  transition: transform 0.1s ease-in-out;
+}
+
+.input-container input:focus {
+  transform: translateY(0);
+}
+
+.input-container input:hover:not(:focus) {
+  transform: translateY(-0.54em);
+}

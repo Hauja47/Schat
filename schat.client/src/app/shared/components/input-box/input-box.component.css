@@ -17,8 +17,9 @@
 
 .input-container input:focus {
   transform: translateY(0);
+  outline-color: var(--ctp-latte-blue);
 }
 
-.input-container input:hover:not(:focus) {
-  transform: translateY(-0.54em);
-}
+/*.input-container input:hover:not(:focus) {*/
+/*  transform: translateY(-0.54em);*/
+/*}*/

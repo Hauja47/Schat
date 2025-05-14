@@ -1,14 +1,22 @@
 import { Component } from '@angular/core';
-import {InputBoxComponent} from '../../../../shared/components/input-box/input-box.component';
+import {NgIcon, provideIcons} from '@ng-icons/core';
+import { faCalendar } from '@ng-icons/font-awesome/regular';
+
+import {TextInputBoxComponent} from '../../../../shared/components/text-input-box/text-input-box.component';
+import {ButtonComponent} from '../../../../shared/components/button/button.component';
 
 @Component({
   selector: 'app-sign-in',
   imports: [
-    InputBoxComponent
+    TextInputBoxComponent,
+    ButtonComponent,
+    NgIcon
   ],
   templateUrl: './sign-in.component.html',
-  styleUrl: './sign-in.component.css'
+  styleUrl: './sign-in.component.css',
+  providers: [
+    provideIcons({faCalendar})
+  ]
 })
 export class SignInComponent {
-
 }

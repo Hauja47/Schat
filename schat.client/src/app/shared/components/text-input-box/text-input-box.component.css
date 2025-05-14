@@ -3,6 +3,7 @@
   background-color: var(--ctp-mocha-base);
   max-width: fit-content;
   border-radius: var(--input-container_border-radius);
+  margin: 12px 0;
 }
 
 .input-container input {

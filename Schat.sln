@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35919.96
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "schat.client", "schat.client\schat.client.esproj", "{B3C1651A-B00D-2805-2735-FE78D8134DE4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schat.Server", "Schat.Server\Schat.Server.csproj", "{7D1122B4-B4DE-44B1-AE20-3CB91C47508C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
@@ -25,12 +23,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B3C1651A-B00D-2805-2735-FE78D8134DE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B3C1651A-B00D-2805-2735-FE78D8134DE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B3C1651A-B00D-2805-2735-FE78D8134DE4}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{B3C1651A-B00D-2805-2735-FE78D8134DE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B3C1651A-B00D-2805-2735-FE78D8134DE4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B3C1651A-B00D-2805-2735-FE78D8134DE4}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{7D1122B4-B4DE-44B1-AE20-3CB91C47508C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7D1122B4-B4DE-44B1-AE20-3CB91C47508C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D1122B4-B4DE-44B1-AE20-3CB91C47508C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -56,7 +48,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{B3C1651A-B00D-2805-2735-FE78D8134DE4} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{7D1122B4-B4DE-44B1-AE20-3CB91C47508C} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{7ADA51A6-5345-461F-8EF1-59FBDD412E49} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{D474FC25-4ECA-4CA3-9398-334D2A0DDA72} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}

@@ -1,106 +1,128 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Schat.Common.Configuration;
 using Schat.Infrastructure.Database;
-using Schat.Server.Controllers;
+using Serilog;
+using Serilog.Events;
 
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
-builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection("JwtConfig"));
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-builder.Services
-    .AddIdentityApiEndpoints<IdentityUser>()
-    .AddEntityFrameworkStores<AppDbContext>();
-
-builder.Services.Configure<IdentityOptions>(options =>
+try
 {
-    options.User.RequireUniqueEmail = true;
-
-    options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireUppercase = true;
-    options.Password.RequireNonAlphanumeric = true;
-    options.Password.RequiredLength = 6;
-});
-
-builder.Services.AddDbContext<AppDbContext>(options =>
-{
-    options.UseNpgsql(
-            builder.Configuration.GetConnectionString("ChatDbConnection"),
-            o => o.UseNodaTime())
-        .UseSnakeCaseNamingConvention();
-});
-
-builder.Services
-    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
+    var builder = WebApplication.CreateBuilder(args);
+    
+    // Add services to the container.
+    
+    Log.Logger = new LoggerConfiguration()
+        .ReadFrom.Configuration(builder.Configuration)
+        .MinimumLevel.Override("Microsoft.AspNetCore.Hosting", LogEventLevel.Warning)
+        .MinimumLevel.Override("Microsoft.AspNetCore.Mvc", LogEventLevel.Warning)
+        .MinimumLevel.Override("Microsoft.AspNetCore.Routing", LogEventLevel.Warning)
+        .CreateLogger();
+    
+    builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection("JwtConfig"));
+    
+    builder.Services.AddSerilog();
+    
+    builder.Services.AddControllers();
+    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
+    
+    builder.Services
+        .AddIdentityApiEndpoints<IdentityUser>()
+        .AddEntityFrameworkStores<AppDbContext>();
+    
+    builder.Services.Configure<IdentityOptions>(options =>
     {
-        options.SaveToken = false;
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(builder.Configuration["JWT:JWTSecret"]!)),
-            ValidateIssuer = false,
-            ValidateAudience = false
-        };
+        options.User.RequireUniqueEmail = true;
+    
+        options.Password.RequireDigit = true;
+        options.Password.RequireLowercase = true;
+        options.Password.RequireUppercase = true;
+        options.Password.RequireNonAlphanumeric = true;
+        options.Password.RequiredLength = 6;
     });
-
-// builder.Services.AddAuthorization(options =>
-// {
-//     options.FallbackPolicy = new AuthorizationPolicyBuilder()
-//         .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
-//         .RequireAuthenticatedUser()
-//         .Build();
-// });
-builder.Services.AddAuthorization();
-
-var app = builder.Build();
-
-app.UseDefaultFiles();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-
-    app.UseDeveloperExceptionPage();
+    
+    builder.Services.AddDbContext<AppDbContext>(options =>
+    {
+        options.UseNpgsql(
+                builder.Configuration.GetConnectionString("ChatDbConnection"),
+                o => o.UseNodaTime())
+            .UseSnakeCaseNamingConvention();
+    });
+    
+    builder.Services
+        .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
+        {
+            options.SaveToken = false;
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(
+                    Encoding.UTF8.GetBytes(builder.Configuration["JwtConfig:Secret"]!)),
+                ValidateIssuer = false,
+                ValidateAudience = false
+            };
+        });
+    
+    // builder.Services.AddAuthorization(options =>
+    // {
+    //     options.FallbackPolicy = new AuthorizationPolicyBuilder()
+    //         .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+    //         .RequireAuthenticatedUser()
+    //         .Build();
+    // });
+    builder.Services.AddAuthorization();
+    
+    Log.Information("Starting web host");
+    
+    var app = builder.Build();
+    
+    app.UseSerilogRequestLogging();
+    
+    app.UseDefaultFiles();
+    
+    // Configure the HTTP request pipeline.
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    
+        app.UseDeveloperExceptionPage();
+    }
+    
+    app.UseHttpsRedirection();
+    
+    app.UseStaticFiles();
+    
+    app.UseCors();
+    
+    app.UseAuthentication();
+    app.UseAuthorization();
+    
+    app.MapGroup("/api");
+    
+    app.MapControllers();
+    app
+        .MapGroup("/api/auth")
+        .MapIdentityApi<IdentityUser>();
+    
+    // app
+    //     .MapGroup("/auth")
+    //     .MapAuthEndpoint();
+    
+    app.MapFallbackToFile("/index.html");
+    
+    app.Run();
 }
-
-app.UseHttpsRedirection();
-
-app.UseStaticFiles();
-
-app.UseCors();
-
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.MapGroup("/api");
-
-app.MapControllers();
-// app
-//     .MapGroup("/api/auth")
-//     .MapIdentityApi<IdentityUser>();
-
-app
-    .MapGroup("/auth")
-    .MapAuthEndpoint();
-
-
-
-app.MapFallbackToFile("/index.html");
-
-app.Run();
+catch (Exception e)
+{
+    Log.Fatal(e, "Application terminated unexpectedly");
+}
+finally
+{
+    Log.CloseAndFlush();
+}

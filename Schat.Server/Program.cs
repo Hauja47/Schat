@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Schat.Application.Exception;
 using Schat.Common.Configuration;
 using Schat.Infrastructure.Database;
+using Schat.Server.Controllers;
 using Serilog;
 using Serilog.Events;
 
@@ -22,6 +24,17 @@ try
         .CreateLogger();
     
     builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection("JwtConfig"));
+    
+    builder.Services.AddProblemDetails(options =>
+    {
+        options.CustomizeProblemDetails = context =>
+        {
+            context.ProblemDetails.Instance =
+                $"{context.HttpContext.Request.Method} {context.HttpContext.Request.Path}";
+            context.ProblemDetails.Extensions["traceId"] = context.HttpContext.TraceIdentifier;
+        };
+    });
+    builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
     
     builder.Services.AddSerilog();
     
@@ -94,6 +107,8 @@ try
         app.UseDeveloperExceptionPage();
     }
     
+    app.UseExceptionHandler();
+    
     app.UseHttpsRedirection();
     
     app.UseStaticFiles();
@@ -103,20 +118,21 @@ try
     app.UseAuthentication();
     app.UseAuthorization();
     
-    app.MapGroup("/api");
-    
     app.MapControllers();
+    // app
+    //     .MapGroup("/api/auth")
+    //     .MapIdentityApi<IdentityUser>();
+
     app
         .MapGroup("/api/auth")
-        .MapIdentityApi<IdentityUser>();
+        .MapAuthEndpoint();
     
-    // app
-    //     .MapGroup("/auth")
-    //     .MapAuthEndpoint();
+    app.
+        MapErrorEndpoint();
     
     app.MapFallbackToFile("/index.html");
     
-    app.Run();
+    await app.RunAsync();
 }
 catch (Exception e)
 {
@@ -124,5 +140,5 @@ catch (Exception e)
 }
 finally
 {
-    Log.CloseAndFlush();
+    await Log.CloseAndFlushAsync();
 }

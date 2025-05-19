@@ -1,12 +1,13 @@
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
-using Schat.Application.DTO;
+using Schat.Application.DTO.Register;
+using Schat.Application.DTO.Signin;
 using Schat.Common.Configuration;
+using Serilog;
 
 namespace Schat.Server.Controllers;
 
@@ -22,16 +23,33 @@ public static class AuthEndpoint
     
     private static async Task<IResult> CreateUser(
         UserManager<IdentityUser> userManager,
-        [FromBody] RegisterRequest registerRequest)
+        [FromBody] RegisterRequest request)
     {
         var user = new IdentityUser
         {
-            Email = registerRequest.Email,
+            Email = request.Email,
+            // UserName = request.Email
         };
             
-        var result = await userManager.CreateAsync(user, registerRequest.Password);
+        var result = await userManager.CreateAsync(user, request.Password);
 
-        return !result.Succeeded ? Results.BadRequest(result.Errors) : Results.Ok(result);
+        if (!result.Succeeded)
+        {
+            Log.Error("User creation failed");
+            
+            return Results.Problem(
+                // title: "User creation failed",
+                statusCode: StatusCodes.Status400BadRequest,
+                detail: "User creation failed",
+                extensions:  new Dictionary<string, object?>
+                {
+                    ["errors"] = result.Errors,
+                }
+            );
+        }
+        
+        Log.Information("User created");
+        return Results.Ok(result);
     }
     
     private static async Task<IResult> Signin(
@@ -49,27 +67,32 @@ public static class AuthEndpoint
             });
         }
             
-        var signinKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.Value.Secret));
+        var token = CreateAccessToken(jwtConfig.Value);
+
+        return Results.Ok(new 
+        {
+            token
+        });
+    }
+
+    private static string CreateAccessToken(JwtConfig jwtConfig)
+    {
+        var signinKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.Secret));
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             // Subject = new ClaimsIdentity(new []
             // {
             //     new Claim(),
             // }),
-            Expires = DateTime.UtcNow.AddMilliseconds(jwtConfig.Value.Duration),
+            Expires = DateTime.UtcNow.AddMilliseconds(jwtConfig.Duration),
             SigningCredentials = new SigningCredentials(
                 signinKey,
                 SecurityAlgorithms.HmacSha256Signature),
-            Issuer = jwtConfig.Value.Issuer,
-            Audience = jwtConfig.Value.Audience
+            Issuer = jwtConfig.Issuer,
+            Audience = jwtConfig.Audience
         };
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var securityToken = tokenHandler.CreateToken(tokenDescriptor);
-        var token = tokenHandler.WriteToken(securityToken);
-                
-        return Results.Ok(new 
-        {
-            token
-        });
+        var tokenHandler = new JsonWebTokenHandler();
+        var token = tokenHandler.CreateToken(tokenDescriptor);
+        return token;
     }
 }

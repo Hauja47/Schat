@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using Schat.Application.DTO.Register;
 using Schat.Application.DTO.Signin;
 using Schat.Common.Configuration;
+using Schat.Domain.Entities;
 using Serilog;
 
 namespace Schat.Server.Controllers;
@@ -20,7 +21,7 @@ public static class AuthEndpoint
 
         return app;
     }
-    
+
     private static async Task<IResult> CreateUser(
         UserManager<IdentityUser> userManager,
         [FromBody] RegisterRequest request)
@@ -28,30 +29,30 @@ public static class AuthEndpoint
         var user = new IdentityUser
         {
             Email = request.Email,
-            // UserName = request.Email
+            UserName = request.Username
         };
-            
+
         var result = await userManager.CreateAsync(user, request.Password);
 
         if (!result.Succeeded)
         {
             Log.Error("User creation failed");
-            
+
             return Results.Problem(
                 // title: "User creation failed",
                 statusCode: StatusCodes.Status400BadRequest,
                 detail: "User creation failed",
-                extensions:  new Dictionary<string, object?>
+                extensions: new Dictionary<string, object?>
                 {
                     ["errors"] = result.Errors,
                 }
             );
         }
-        
+
         Log.Information("User created");
         return Results.Ok(result);
     }
-    
+
     private static async Task<IResult> Signin(
         UserManager<IdentityUser> userManager,
         IOptions<JwtConfig> jwtConfig,
@@ -61,15 +62,15 @@ public static class AuthEndpoint
 
         if (user == null || !await userManager.CheckPasswordAsync(user, signinRequest.Password))
         {
-            return Results.BadRequest(new
-            {
-                message = "Email or password is incorrect."
-            });
+            return Results.Problem(
+                statusCode: StatusCodes.Status400BadRequest,
+                detail: "Wrong username or password"
+            );
         }
-            
+
         var token = CreateAccessToken(jwtConfig.Value);
 
-        return Results.Ok(new 
+        return Results.Ok(new
         {
             token
         });

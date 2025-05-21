@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Schat.Application\Schat.Application.csproj" />
+    <ProjectReference Include="..\Schat.Common\Schat.Common.csproj" />
   </ItemGroup>
 
 </Project>

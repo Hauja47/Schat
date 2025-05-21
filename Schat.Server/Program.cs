@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using Schat.Application.Exception;
 using Schat.Common.Configuration;
 using Schat.Infrastructure.Database;
+using Schat.Infrastructure.Factory;
 using Schat.Server.Controllers;
 using Serilog;
 using Serilog.Events;
@@ -42,7 +43,7 @@ try
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
-    
+
     builder.Services
         .AddIdentityApiEndpoints<IdentityUser>()
         .AddEntityFrameworkStores<AppDbContext>();
@@ -50,12 +51,17 @@ try
     builder.Services.Configure<IdentityOptions>(options =>
     {
         options.User.RequireUniqueEmail = true;
-    
+        
         options.Password.RequireDigit = true;
         options.Password.RequireLowercase = true;
         options.Password.RequireUppercase = true;
         options.Password.RequireNonAlphanumeric = true;
         options.Password.RequiredLength = 6;
+    });
+    
+    builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
+    {
+        options.TokenLifespan = TimeSpan.FromMinutes(4);
     });
     
     builder.Services.AddDbContext<AppDbContext>(options =>
@@ -81,13 +87,7 @@ try
             };
         });
     
-    // builder.Services.AddAuthorization(options =>
-    // {
-    //     options.FallbackPolicy = new AuthorizationPolicyBuilder()
-    //         .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
-    //         .RequireAuthenticatedUser()
-    //         .Build();
-    // });
+    builder.Services.AddAuthorization();
 
     builder.Services
         .AddFluentEmail(
@@ -96,8 +96,9 @@ try
         .AddSmtpSender(
             builder.Configuration["Smtp:Host"],
             builder.Configuration.GetValue<int>("Smtp:Port"));
-    
-    builder.Services.AddAuthorization();
+
+    builder.Services.AddScoped<EmailVerificationLinkFactory>();
+    builder.Services.AddHttpContextAccessor();
     
     Log.Information("Starting web host");
     

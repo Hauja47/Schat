@@ -1,13 +1,16 @@
 using System.Text;
+using FluentEmail.Core;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using Schat.Application.DTO.Register;
 using Schat.Application.DTO.Signin;
 using Schat.Common.Configuration;
-using Schat.Domain.Entities;
+using Schat.Common.Constants;
+using Schat.Infrastructure.Factory;
 using Serilog;
 
 namespace Schat.Server.Controllers;
@@ -18,12 +21,17 @@ public static class AuthEndpoint
     {
         app.MapPost("/register", CreateUser);
         app.MapPost("/signin", Signin);
+        app
+            .MapGet("/verify-email", VerifyEmail)
+            .WithName(EndpointName.VerifyEmail);
 
         return app;
     }
 
     private static async Task<IResult> CreateUser(
         UserManager<IdentityUser> userManager,
+        IFluentEmail fluentEmail,
+        EmailVerificationLinkFactory emailVerificationLinkFactory,
         [FromBody] RegisterRequest request)
     {
         var user = new IdentityUser
@@ -48,9 +56,28 @@ public static class AuthEndpoint
                 }
             );
         }
+        
+        var confirmationToken = await userManager.GenerateEmailConfirmationTokenAsync(user);
+        confirmationToken = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(confirmationToken));
+
+        var emailConfirmationUrl = emailVerificationLinkFactory.Create(confirmationToken, user.Email);
+
+        await fluentEmail
+            .To(user.Email)
+            .Subject("Email confirmation")
+            .Body($"To verify your email, <a href='{emailConfirmationUrl}'>click here</a>", true)
+            .SendAsync();
 
         Log.Information("User created");
         return Results.Ok(result);
+    }
+
+    private static async Task<IResult> VerifyEmail(
+        UserManager<IdentityUser> userManager,
+        [FromQuery] string userId,
+        [FromQuery] string confirmationCode)
+    {
+        throw new System.NotImplementedException();
     }
 
     private static async Task<IResult> Signin(

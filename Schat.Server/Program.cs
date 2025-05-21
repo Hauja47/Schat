@@ -88,6 +88,15 @@ try
     //         .RequireAuthenticatedUser()
     //         .Build();
     // });
+
+    builder.Services
+        .AddFluentEmail(
+            builder.Configuration["Email:SenderEmail"],
+            builder.Configuration["Email:Sender"])
+        .AddSmtpSender(
+            builder.Configuration["Smtp:Host"],
+            builder.Configuration.GetValue<int>("Smtp:Port"));
+    
     builder.Services.AddAuthorization();
     
     Log.Information("Starting web host");
@@ -126,9 +135,10 @@ try
     app
         .MapGroup("/api/auth")
         .MapAuthEndpoint();
-    
-    app.
-        MapErrorEndpoint();
+
+    app
+        .MapGroup("api/test")
+        .MapTestEndpoint();
     
     app.MapFallbackToFile("/index.html");
     

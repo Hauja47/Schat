@@ -16,7 +16,7 @@ public class GlobalExceptionHandler(IProblemDetailsService problemDetailsService
             _ => StatusCodes.Status500InternalServerError,
         };
         
-        Log.Error(exception, "An unhandled exception occurred.");
+        Log.Error(exception, "An unhandled exception occurred");
 
         return await problemDetailsService.TryWriteAsync(new ProblemDetailsContext
         {

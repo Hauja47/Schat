@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Text.Encodings.Web;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Schat.Application.Exception;
 using Schat.Common.Constants;
@@ -11,14 +12,6 @@ public class EmailVerificationLinkFactory(
 {
     public string Create(string emailVerificationToken, string userEmail)
     {
-        // string? verificationLink = linkGenerator.GetUriByName(
-        //     httpContextAccessor.HttpContext!, 
-        //     EndpointName.VerifyEmail,
-        //     new
-        //     {
-        //         token = emailVerificationToken
-        //     });
-        
         string? verificationLink = linkGenerator.GetUriByName(
             httpContextAccessor.HttpContext!,
             endpointName: EndpointName.VerifyEmail,
@@ -28,6 +21,6 @@ public class EmailVerificationLinkFactory(
                 userEmail
             });
         
-        return  verificationLink ?? throw new NotCreatedException("Email verification could not be created.");
+        return verificationLink ?? throw new NotCreatedException("Email verification could not be created.");
     }
 }

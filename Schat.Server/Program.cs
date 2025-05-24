@@ -52,6 +52,8 @@ try
     {
         options.User.RequireUniqueEmail = true;
         
+        options.SignIn.RequireConfirmedEmail = true;
+        
         options.Password.RequireDigit = true;
         options.Password.RequireLowercase = true;
         options.Password.RequireUppercase = true;

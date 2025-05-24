@@ -1,3 +1,3 @@
 namespace Schat.Application.DTO.Signin;
 
-public record SigninReponse();
+public record SigninResponse();

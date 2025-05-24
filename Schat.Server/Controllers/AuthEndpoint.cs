@@ -1,4 +1,6 @@
 using System.Text;
+using System.Text.Encodings.Web;
+using System.Web;
 using FluentEmail.Core;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -74,10 +76,38 @@ public static class AuthEndpoint
 
     private static async Task<IResult> VerifyEmail(
         UserManager<IdentityUser> userManager,
-        [FromQuery] string userId,
-        [FromQuery] string confirmationCode)
+        [FromQuery] string? userEmail,
+        [FromQuery] string? confirmationToken)
     {
-        throw new System.NotImplementedException();
+        if (userEmail == null || confirmationToken == null)
+            return Results.Problem(
+                statusCode: StatusCodes.Status400BadRequest,
+                detail: "Invalid payload");
+        
+        var user = await userManager.FindByEmailAsync(userEmail);
+        if (user == null)
+        {
+            return Results.Problem(
+                statusCode: StatusCodes.Status400BadRequest,
+                detail: "Invalid payload"); 
+        }
+        
+        confirmationToken = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(confirmationToken));
+        
+        var isVerified = await userManager.ConfirmEmailAsync(user,  confirmationToken);
+        if (!isVerified.Succeeded)
+        {   
+            Log.Information("User verification failed: {@Message}", isVerified.Errors);
+            
+            return Results.Problem(
+                statusCode: StatusCodes.Status400BadRequest,
+                detail: "Something went wrong");
+        }
+
+        return Results.Ok(new
+        {
+            message = "Email verification succeeded"
+        });
     }
 
     private static async Task<IResult> Signin(

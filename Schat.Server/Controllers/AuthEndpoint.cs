@@ -49,7 +49,6 @@ public static class AuthEndpoint
             Log.Error("User creation failed");
 
             return Results.Problem(
-                // title: "User creation failed",
                 statusCode: StatusCodes.Status400BadRequest,
                 detail: "User creation failed",
                 extensions: new Dictionary<string, object?>
@@ -64,11 +63,35 @@ public static class AuthEndpoint
 
         var emailConfirmationUrl = emailVerificationLinkFactory.Create(confirmationToken, user.Email);
 
-        await fluentEmail
+        var sendEmailResult = await fluentEmail
             .To(user.Email)
             .Subject("Email confirmation")
             .Body($"To verify your email, <a href='{emailConfirmationUrl}'>click here</a>", true)
             .SendAsync();
+
+        if (!sendEmailResult.Successful)
+        {
+            Log.Error("Send email failed");
+            
+            var deleteResult = await userManager.DeleteAsync(user);
+
+            if (!deleteResult.Succeeded)
+            {
+                Log.Error("Delete email failed: {@Errors}",  deleteResult.Errors);
+            }
+
+            sendEmailResult.ErrorMessages.AddRange(deleteResult.Errors?.Select(e => e.Description).ToList());
+            var errors = sendEmailResult;
+            
+            return Results.Problem(
+                statusCode: StatusCodes.Status400BadRequest,
+                detail: "User creation failed",
+                extensions: new Dictionary<string, object?>
+                {
+                    ["errors"] = errors
+                }
+            );
+        }
 
         Log.Information("User created");
         return Results.Ok(result);
@@ -103,7 +126,7 @@ public static class AuthEndpoint
                 statusCode: StatusCodes.Status400BadRequest,
                 detail: "Something went wrong");
         }
-
+        
         return Results.Ok(new
         {
             message = "Email verification succeeded"

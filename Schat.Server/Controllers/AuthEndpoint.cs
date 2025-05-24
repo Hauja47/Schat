@@ -85,7 +85,7 @@ public static class AuthEndpoint
             
             return Results.Problem(
                 statusCode: StatusCodes.Status400BadRequest,
-                detail: "User creation failed",
+                detail: "User creation failed. Please try again later5",
                 extensions: new Dictionary<string, object?>
                 {
                     ["errors"] = errors

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 public class MessageRepository(AppDbContext context) : GenericRepository<Message>(context), IMessageRepository
 {
-    public async Task<IEnumerable<Message>> GetMessagesByChannel(Guid channelId, int take = 10)
+    public async Task<IEnumerable<Message>> GetLastestMessagesOfChannel(Guid channelId, int take = 10)
         => await this.db
             .Where(m => m.ChannelId == channelId)
             .OrderByDescending(m => m.CreatedDate)

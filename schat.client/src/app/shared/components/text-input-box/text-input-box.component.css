@@ -1,16 +1,19 @@
 .input-container {
   --input-container_border-radius: 0.75em;
   background-color: var(--ctp-mocha-base);
-  max-width: fit-content;
   border-radius: var(--input-container_border-radius);
+  width: 100%;
+
+  display: flex;
 }
 
 .input-container input {
-  font-size: 16px;
-  padding: 0.5em 0.75em;
-  background-color: var(--ctp-latte-crust);
   color: var(--ctp-latte-text);
+  background-color: var(--ctp-latte-crust);
   border-radius: var(--input-container_border-radius);
+  width: 100%;
+  padding: 0.5em 0.75em;
+  font-size: 16px;
   transform: translateY(-0.4em);
   transition: transform 0.1s ease-in-out;
 }

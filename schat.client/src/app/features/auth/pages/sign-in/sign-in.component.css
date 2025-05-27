@@ -7,8 +7,8 @@
 }
 
 .container {
-  background-color: var(--ctp-latte-surface0);
-  width: fit-content;
+  background-color: var(--ctp-latte-surface1);
+  width: 36%;
   padding: 20px;
   border-radius: 0.75em;
 

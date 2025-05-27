@@ -1,17 +1,29 @@
-<!--<p>sign-in works!</p>-->
-
 <div class="container">
-  <h1>Login</h1>
+  <p class="label">Welcome, <span>sign in to continue</span></p>
   <form action="" class="sign-in-form">
-    <app-text-input-box name="email" placeholder="Email"></app-text-input-box>
-    <app-text-input-box
-      name="password"
-      type="password"
-      placeholder="Password">
-    </app-text-input-box>
-    <app-button>
-      <ng-icon name="faCalendar"></ng-icon>
-      Login
-    </app-button>
+    <div class="text-input-container">
+      <app-text-input-box name="email" placeholder="Email"></app-text-input-box>
+      <app-text-input-box
+        name="password"
+        type="password"
+        placeholder="Password">
+      </app-text-input-box>
+    </div>
+    <div>
+      <app-button>
+        Login
+      </app-button>
+      <p class="sign-up-label">Have no account? <a href="">Sign up!</a></p>
+    </div>
   </form>
+  <div class="separator">
+    <div></div>
+    <span>or</span>
+    <div></div>
+  </div>
+  <div class="oauth-btn-group">
+    <app-button><ng-icon name="faBrandGoogle"></ng-icon></app-button>
+    <app-button><ng-icon name="faBrandFacebook"></ng-icon></app-button>
+    <app-button><ng-icon name="faBrandGithub"></ng-icon></app-button>
+  </div>
 </div>

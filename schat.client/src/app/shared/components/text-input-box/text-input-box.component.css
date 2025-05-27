@@ -3,7 +3,6 @@
   background-color: var(--ctp-mocha-base);
   max-width: fit-content;
   border-radius: var(--input-container_border-radius);
-  margin: 12px 0;
 }
 
 .input-container input {
@@ -18,7 +17,7 @@
 
 .input-container input:focus {
   transform: translateY(0);
-  outline-color: var(--ctp-latte-blue);
+  outline-color: var(--ctp-mocha-base);
 }
 
 /*.input-container input:hover:not(:focus) {*/

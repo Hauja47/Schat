@@ -2,26 +2,10 @@
 @import "@catppuccin/palette/css/catppuccin.css";
 
 :root {
-  /*--primary-color: light-dark(#f2d5cf, #f4dbd6);*/
-  /*--secondary-color: light-dark(#eebebe, #f0c6c6);*/
-  /*--background-pane-color: light-dark(#eff1f5, #24273a);*/
-  /*--secondary-pane-color: light-dark(#dce0e8, #181926);*/
-  /*--text-color: light-dark(#4c4f69, #cad3f5);*/
-  /*--surface-0-color: light-dark(#ccd0da, #363a4f);*/
-  /*--surface-1-color: light-dark(#bcc0cc, #494d64);*/
-  /*--surface-2-color: light-dark(#acb0be, #5b6078);*/
-  /*--overlay-0-color: light-dark(#9ca0b0, #6e738d);*/
-  /*--overlay-1-color: light-dark(#8c8fa1, #8087a2);*/
-  /*--overlay-2-color: light-dark(#7c7f93, #939ab7);*/
-  /*--error-color: light-dark(#d20f39, #ed8796);*/
-  /*--warning-color: light-dark(#fe640b, #f5a97f);*/
-  /*--success-color: light-dark(#40a02b, #a6da95);*/
-
   color-scheme: light;
+  background-color: var(--ctp-latte-base);
 
   font-family: Inter, "Roboto Light", sans-serif;
-
-  background-color: var(--ctp-latte-base);
 }
 
 

@@ -156,6 +156,30 @@ public static class AuthEndpoint
         });
     }
 
+    private static async Task<IResult> ResetPassword(
+        UserManager<IdentityUser> userManager,
+        IFluentEmail fluentEmail,
+        [FromQuery] string? userEmail)
+    {
+        if (userEmail == null)
+            return Results.Problem(
+                statusCode: StatusCodes.Status400BadRequest,
+                detail: "Invalid payload");
+        
+        var user = await userManager.FindByEmailAsync(userEmail);
+        if (user == null)
+        {
+            return Results.Problem(
+                statusCode: StatusCodes.Status400BadRequest,
+                detail: "Invalid payload");
+        }
+        
+        var resetPasswordToken = await userManager.GeneratePasswordResetTokenAsync(user);
+        resetPasswordToken = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(resetPasswordToken));
+        
+        throw new NotImplementedException();
+    }
+
     private static string CreateAccessToken(JwtConfig jwtConfig)
     {
         var signinKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.Secret));

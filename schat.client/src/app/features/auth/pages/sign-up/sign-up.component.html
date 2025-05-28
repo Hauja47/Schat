@@ -1,0 +1,38 @@
+<app-layout>
+  <p class="label">Sign up <span>to use our app</span></p>
+
+  <form action="" class="sign-up-form">
+    <div class="text-input-container">
+      <span>
+        <app-text-input-box name="email" placeholder="Email"></app-text-input-box>
+        <app-errors-list [errorList]="emailErrors"></app-errors-list>
+      </span>
+
+      <span>
+        <app-text-input-box name="username" placeholder="Username"></app-text-input-box>
+        <app-errors-list [errorList]="usernameErrors"></app-errors-list>
+      </span>
+
+      <span>
+        <app-text-input-box name="password" placeholder="Password" type="password"></app-text-input-box>
+        <app-errors-list [errorList]="passwordErrors"></app-errors-list>
+      </span>
+
+      <span>
+        <app-text-input-box name="confirm-password" placeholder="Confirm Password" type="password"></app-text-input-box>
+        <app-errors-list [errorList]="confirmPasswordErrors"></app-errors-list>
+      </span>
+    </div>
+
+    <span>
+      <app-button>
+        Sign up
+      </app-button>
+      <p class="sign-in-label">Already have account? <a routerLink="/auth/sign-in" routerLinkActive="active"
+                                                        ariaCurrentWhenActive="page">Sign in!</a></p>
+    </span>
+  </form>
+
+  <app-or-separator></app-or-separator>
+  <app-oauth-btn-group></app-oauth-btn-group>
+</app-layout>

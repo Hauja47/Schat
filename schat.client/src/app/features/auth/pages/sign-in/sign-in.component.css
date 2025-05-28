@@ -6,18 +6,7 @@
   height: 100vh;
 }
 
-.container {
-  background-color: var(--ctp-latte-surface1);
-  width: 36%;
-  padding: 20px;
-  border-radius: 0.75em;
-
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.container .label {
+.label {
   font-weight: 700;
   font-size: 20px;
   margin-top: 0;
@@ -26,9 +15,9 @@
   flex-direction: column;
 }
 
-.container > p > span {
-  font-weight: 400;
-  font-size: 17px;
+.label > span {
+  font-weight: 200;
+  font-size: 16px;
 }
 
 .sign-in-form {
@@ -40,7 +29,15 @@
 .sign-in-form .text-input-container {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 10px;
+}
+
+.forgot-password-link {
+  font-size: 11px;
+  font-weight: 400;
+
+  margin-top: 4px;
+  margin-left: 4px;
 }
 
 .sign-up-label {
@@ -49,29 +46,3 @@
   text-align: center;
 }
 
-.separator {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-}
-
-.separator > div {
-  width: 100px;
-  height: 3px;
-  border-radius: 5px;
-  background-color: var(--ctp-latte-surface2);
-}
-
-.separator > span {
-  color: var(--ctp-latte-text);
-  font-weight: 600;
-}
-
-.oauth-btn-group {
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-  justify-content: center;
-}

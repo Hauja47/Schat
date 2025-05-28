@@ -1,0 +1,10 @@
+.container {
+  background-color: var(--ctp-latte-surface1);
+  min-width: 320px;
+  padding: 20px;
+  border-radius: 0.75em;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

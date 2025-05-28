@@ -1,35 +1,25 @@
-<div class="container">
+<app-layout>
   <p class="label">Welcome, <span>sign in to continue</span></p>
   <form action="" class="sign-in-form">
     <div class="text-input-container">
       <app-text-input-box name="email" placeholder="Email"></app-text-input-box>
-      <app-text-input-box
-        name="password"
-        type="password"
-        placeholder="Password">
-      </app-text-input-box>
+      <span>
+        <app-text-input-box
+          name="password"
+          type="password"
+          placeholder="Password">
+        </app-text-input-box>
+        <a class="forgot-password-link" routerLink="/auth/reset-password" routerLinkActive="active">Forgot password?</a>
+      </span>
     </div>
     <div>
       <app-button>
         Login
       </app-button>
-      <p class="sign-up-label">Have no account? <a href="">Sign up!</a></p>
+      <p class="sign-up-label">Have no account? <a routerLink="/auth/sign-up" routerLinkActive="active"
+                                                   ariaCurrentWhenActive="page">Sign up!</a></p>
     </div>
   </form>
-  <div class="separator">
-    <div></div>
-    <span>or</span>
-    <div></div>
-  </div>
-  <div class="oauth-btn-group">
-    <app-button>
-      <ng-icon name="faBrandGoogle"></ng-icon>
-    </app-button>
-    <app-button>
-      <ng-icon name="faBrandFacebook"></ng-icon>
-    </app-button>
-    <app-button>
-      <ng-icon name="faBrandGithub"></ng-icon>
-    </app-button>
-  </div>
-</div>
+  <app-or-separator></app-or-separator>
+  <app-oauth-btn-group></app-oauth-btn-group>
+</app-layout>

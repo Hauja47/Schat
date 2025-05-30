@@ -8,4 +8,6 @@
   font-family: Inter, "Roboto Light", sans-serif;
 }
 
-
+.active {
+  color: var(--ctp-latte-green);
+}

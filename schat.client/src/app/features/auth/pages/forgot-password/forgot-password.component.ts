@@ -28,7 +28,18 @@ export class ForgotPasswordComponent {
     ])
   })
 
-  emailInputChanged(event: Event) : void {
-    console.log('emailInputChanged event: ', event);
+  onSubmit() {
+    console.error("error: ", this.email?.errors);
+    console.info(this.forgotPasswordForm.value.email);
+  }
+
+  get email() {
+    return this.forgotPasswordForm.get('email');
+  }
+
+  onInput(event: Event) {
+    if (this.email?.value) {
+      this.isEmailValid.set(!this.email.hasError('email'));
+    }
   }
 }

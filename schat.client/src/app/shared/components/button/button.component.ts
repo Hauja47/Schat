@@ -1,4 +1,4 @@
-import {Component, input} from '@angular/core';
+import {Component, input, output} from '@angular/core';
 
 export type ButtonType = "button" | "submit" | "reset";
 
@@ -11,4 +11,9 @@ export type ButtonType = "button" | "submit" | "reset";
 export class ButtonComponent {
   disabled = input<boolean>(false);
   type =  input<ButtonType>('button');
+  buttonClick = output<void>();
+
+  onClick() {
+    this.buttonClick.emit();
+  }
 }

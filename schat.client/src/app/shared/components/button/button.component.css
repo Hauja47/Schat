@@ -32,3 +32,24 @@ button:active .btn {
   transform: translateY(0);
 }
 
+button:disabled {
+  --button--disabled-border-color: var(--ctp-latte-overlay1);
+
+  cursor: not-allowed;
+  color: var(--ctp-latte-subtext0);
+  background-color: var(--button--disabled-border-color);
+}
+
+button:disabled .btn {
+  cursor: not-allowed;
+  border-color: var(--button--disabled-border-color);
+}
+
+button:disabled:hover .btn {
+  transform: translateY(-0.4em);
+}
+
+button:disabled:active .btn {
+  transform: translateY(-0.4em);
+}
+

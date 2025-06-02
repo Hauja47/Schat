@@ -5,7 +5,7 @@ import {TextInputBoxComponent} from '../../../../shared/components/text-input-bo
 import {ButtonComponent} from '../../../../shared/components/button/button.component';
 import {ErrorsListComponent} from '../../../../shared/components/errors-list/error-list.component';
 import {Errors} from '../../../../core/models/errors.model';
-import {toError} from '../../../../core/utils/to-error';
+import {toError, getControlName, capitalizeFirstLetter} from '../../../../core/utils/';
 
 @Component({
   selector: 'app-forgot-password',
@@ -40,9 +40,8 @@ export class ForgotPasswordComponent {
   }
 
   onEmailInput(event: Event) {
-    this.emailErrors.set(toError(this.email?.errors));
+    const emailFormControlName = capitalizeFirstLetter(getControlName(this.email!)!);
 
-    console.error("error: ", this.email?.errors);
-    console.info(this.forgotPasswordForm.value.email);
+    this.emailErrors.set(toError(this.email?.errors, emailFormControlName))
   }
 }

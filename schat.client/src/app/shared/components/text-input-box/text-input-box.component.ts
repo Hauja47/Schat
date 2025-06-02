@@ -26,8 +26,9 @@ export class TextInputBoxComponent implements ControlValueAccessor {
   required = input<boolean>(false);
   id = input<string>('');
 
+
   value: any = '';
-  isDisabled = false;
+  disabled = false;
   touched = false;
 
   onChange: (value: any) => void = () => {};
@@ -46,7 +47,7 @@ export class TextInputBoxComponent implements ControlValueAccessor {
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    this.isDisabled = isDisabled;
+    this.disabled = isDisabled;
   }
 
   onInput(event: Event) {

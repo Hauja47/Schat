@@ -6,6 +6,9 @@ import {ButtonComponent} from '../../../../shared/components/button/button.compo
 import {ErrorsListComponent} from '../../../../shared/components/errors-list/error-list.component';
 import {Errors} from '../../../../core/models/errors.model';
 import {toError, getControlName, capitalizeFirstLetter} from '../../../../core/utils/';
+import {NgIcon, provideIcons} from '@ng-icons/core';
+import {faSolidChevronLeft} from '@ng-icons/font-awesome/solid'
+import {RouterLink, RouterLinkActive} from '@angular/router';
 
 @Component({
   selector: 'app-forgot-password',
@@ -14,10 +17,16 @@ import {toError, getControlName, capitalizeFirstLetter} from '../../../../core/u
     TextInputBoxComponent,
     ButtonComponent,
     ErrorsListComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgIcon,
+    RouterLink,
+    RouterLinkActive
   ],
   templateUrl: './forgot-password.component.html',
-  styleUrl: './forgot-password.component.css'
+  styleUrl: './forgot-password.component.css',
+  providers: [
+    provideIcons({faSolidChevronLeft})
+  ]
 })
 export class ForgotPasswordComponent {
   emailErrors = signal<Errors | undefined>({
@@ -39,7 +48,7 @@ export class ForgotPasswordComponent {
     return this.forgotPasswordForm.get('email');
   }
 
-  onEmailInput(event: Event) {
+  onEmailInput() {
     const emailFormControlName = capitalizeFirstLetter(getControlName(this.email!)!);
 
     this.emailErrors.set(toError(this.email?.errors, emailFormControlName))

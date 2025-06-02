@@ -1,12 +1,12 @@
 button {
   --button_radius: 0.75em;
-  --button_border-color: var(--ctp-mocha-base);
+  --button_border-color: light-dark(var(--ctp-mocha-base), var(--ctp-mocha-overlay0));
   --button_width: 100%;
   cursor: pointer;
   padding: 0;
   font-size: 16px;
   background-color: var(--button_border-color);
-  color: var(--ctp-latte-text);
+  color: var(--color-text);
   border: none;
   border-radius: var(--button_radius);
   width: var(--button_width);
@@ -16,7 +16,7 @@ button {
   display: inline-block;
   box-sizing: border-box;
   padding: 0.75em 1em;
-  background: var(--ctp-latte-crust);
+  background: var(--color-crust);
   border-radius: var(--button_radius);
   border: 0.175em solid var(--button_border-color);
   transform: translateY(-0.4em);
@@ -33,10 +33,10 @@ button:active .btn {
 }
 
 button:disabled {
-  --button--disabled-border-color: var(--ctp-latte-overlay1);
+  --button--disabled-border-color: light-dark(var(--ctp-latte-surface2), var(--ctp-mocha-surface0));
 
   cursor: not-allowed;
-  color: var(--ctp-latte-subtext0);
+  color: var(--color-subtext0);
   background-color: var(--button--disabled-border-color);
 }
 

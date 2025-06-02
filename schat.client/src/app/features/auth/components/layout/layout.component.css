@@ -1,5 +1,5 @@
 .container {
-  background-color: var(--ctp-latte-surface1);
+  background-color: var(--color-surface1);
   min-width: 320px;
   padding: 20px;
   border-radius: 0.75em;

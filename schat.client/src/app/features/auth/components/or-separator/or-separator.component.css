@@ -10,10 +10,10 @@
   width: 100px;
   height: 3px;
   border-radius: 5px;
-  background-color: var(--ctp-latte-surface2);
+  background-color: var(--color-surface2);
 }
 
 .separator > span {
-  color: var(--ctp-latte-text);
+  color: var(--color-text);
   font-weight: 600;
 }

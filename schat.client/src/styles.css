@@ -2,12 +2,121 @@
 @import "@catppuccin/palette/css/catppuccin.css";
 
 :root {
-  color-scheme: light;
-  background-color: var(--ctp-latte-base);
+  color-scheme: light dark;
+  background-color: var(--color-base);
 
   font-family: Inter, "Roboto Light", sans-serif;
+  color: var(--color-text);
+
+  /*region Colors*/
+  --color-rosewater: light-dark(var(--ctp-latte-rosewater), var(--ctp-mocha-rosewater));
+  --color-rosewater-rgb: light-dark(var(--ctp-latte-rosewater-rgb), var(--ctp-mocha-rosewater-rgb));
+  --color-rosewater-hsl: light-dark(var(--ctp-latte-rosewater-hsl), var(--ctp-mocha-rosewater-hsl));
+
+  --color-flamingo: light-dark(var(--ctp-latte-flamingo), var(--ctp-mocha-flamingo));
+  --color-flamingo-rgb: light-dark(var(--ctp-latte-flamingo-rgb), var(--ctp-mocha-flamingo-rgb));
+  --color-flamingo-hsl: light-dark(var(--ctp-latte-flamingo-hsl), var(--ctp-mocha-flamingo-hsl));
+
+  --color-pink: light-dark(var(--ctp-latte-pink), var(--ctp-mocha-pink));
+  --color-pink-rgb: light-dark(var(--ctp-latte-pink-rgb), var(--ctp-mocha-pink-rgb));
+  --color-pink-hsl: light-dark(var(--ctp-latte-pink-hsl), var(--ctp-mocha-pink-hsl));
+
+  --color-mauve: light-dark(var(--ctp-latte-mauve), var(--ctp-mocha-mauve));
+  --color-mauve-rgb: light-dark(var(--ctp-latte-mauve-rgb), var(--ctp-mocha-mauve-rgb));
+  --color-mauve-hsl: light-dark(var(--ctp-latte-mauve-hsl), var(--ctp-mocha-mauve-hsl));
+
+  --color-red: light-dark(var(--ctp-latte-red), var(--ctp-mocha-red));
+  --color-red-rgb: light-dark(var(--ctp-latte-red-rgb), var(--ctp-mocha-red-rgb));
+  --color-red-hsl: light-dark(var(--ctp-latte-red-hsl), var(--ctp-mocha-red-hsl));
+
+  --color-maroon: light-dark(var(--ctp-latte-maroon), var(--ctp-mocha-maroon));
+  --color-maroon-rgb: light-dark(var(--ctp-latte-maroon-rgb), var(--ctp-mocha-maroon-rgb));
+  --color-maroon-hsl: light-dark(var(--ctp-latte-maroon-hsl), var(--ctp-mocha-maroon-hsl));
+
+  --color-peach: light-dark(var(--ctp-latte-peach), var(--ctp-mocha-peach));
+  --color-peach-rgb: light-dark(var(--ctp-latte-peach-rgb), var(--ctp-mocha-peach-rgb));
+  --color-peach-hsl: light-dark(var(--ctp-latte-peach-hsl), var(--ctp-mocha-peach-hsl));
+
+  --color-yellow: light-dark(var(--ctp-latte-yellow), var(--ctp-mocha-yellow));
+  --color-yellow-rgb: light-dark(var(--ctp-latte-yellow-rgb), var(--ctp-mocha-yellow-rgb));
+  --color-yellow-hsl: light-dark(var(--ctp-latte-yellow-hsl), var(--ctp-mocha-yellow-hsl));
+
+  --color-green: light-dark(var(--ctp-latte-green), var(--ctp-mocha-green));
+  --color-green-rgb: light-dark(var(--ctp-latte-green-rgb), var(--ctp-mocha-green-rgb));
+  --color-green-hsl: light-dark(var(--ctp-latte-green-hsl), var(--ctp-mocha-green-hsl));
+
+  --color-teal: light-dark(var(--ctp-latte-teal), var(--ctp-mocha-teal));
+  --color-teal-rgb: light-dark(var(--ctp-latte-teal-rgb), var(--ctp-mocha-teal-rgb));
+  --color-teal-hsl: light-dark(var(--ctp-latte-teal-hsl), var(--ctp-mocha-teal-hsl));
+
+  --color-sky: light-dark(var(--ctp-latte-sky), var(--ctp-mocha-sky));
+  --color-sky-rgb: light-dark(var(--ctp-latte-sky-rgb), var(--ctp-mocha-sky-rgb));
+  --color-sky-hsl: light-dark(var(--ctp-latte-sky-hsl), var(--ctp-mocha-sky-hsl));
+
+  --color-sapphire: light-dark(var(--ctp-latte-sapphire), var(--ctp-mocha-sapphire));
+  --color-sapphire-rgb: light-dark(var(--ctp-latte-sapphire-rgb), var(--ctp-mocha-sapphire-rgb));
+  --color-sapphire-hsl: light-dark(var(--ctp-latte-sapphire-hsl), var(--ctp-mocha-sapphire-hsl));
+
+  --color-blue: light-dark(var(--ctp-latte-blue), var(--ctp-mocha-blue));
+  --color-blue-rgb: light-dark(var(--ctp-latte-blue-rgb), var(--ctp-mocha-blue-rgb));
+  --color-blue-hsl: light-dark(var(--ctp-latte-blue-hsl), var(--ctp-mocha-blue-hsl));
+
+  --color-lavender: light-dark(var(--ctp-latte-lavender), var(--ctp-mocha-lavender));
+  --color-lavender-rgb: light-dark(var(--ctp-latte-lavender-rgb), var(--ctp-mocha-lavender-rgb));
+  --color-lavender-hsl: light-dark(var(--ctp-latte-lavender-hsl), var(--ctp-mocha-lavender-hsl));
+
+  --color-text: light-dark(var(--ctp-latte-text), var(--ctp-mocha-text));
+  --color-text-rgb: light-dark(var(--ctp-latte-text-rgb), var(--ctp-mocha-text-rgb));
+  --color-text-hsl: light-dark(var(--ctp-latte-text-hsl), var(--ctp-mocha-text-hsl));
+
+  --color-subtext1: light-dark(var(--ctp-latte-subtext1), var(--ctp-mocha-subtext1));
+  --color-subtext1-rgb: light-dark(var(--ctp-latte-subtext1-rgb), var(--ctp-mocha-subtext1-rgb));
+  --color-subtext1-hsl: light-dark(var(--ctp-latte-subtext1-hsl), var(--ctp-mocha-subtext1-hsl));
+
+  --color-subtext0: light-dark(var(--ctp-latte-subtext0), var(--ctp-mocha-subtext0));
+  --color-subtext0-rgb: light-dark(var(--ctp-latte-subtext0-rgb), var(--ctp-mocha-subtext0-rgb));
+  --color-subtext0-hsl: light-dark(var(--ctp-latte-subtext0-hsl), var(--ctp-mocha-subtext0-hsl));
+
+  --color-overlay2: light-dark(var(--ctp-latte-overlay2), var(--ctp-mocha-overlay2));
+  --color-overlay2-rgb: light-dark(var(--ctp-latte-overlay2-rgb), var(--ctp-mocha-overlay2-rgb));
+  --color-overlay2-hsl: light-dark(var(--ctp-latte-overlay2-hsl), var(--ctp-mocha-overlay2-hsl));
+
+  --color-overlay1: light-dark(var(--ctp-latte-overlay1), var(--ctp-mocha-overlay1));
+  --color-overlay1-rgb: light-dark(var(--ctp-latte-overlay1-rgb), var(--ctp-mocha-overlay1-rgb));
+  --color-overlay1-hsl: light-dark(var(--ctp-latte-overlay1-hsl), var(--ctp-mocha-overlay1-hsl));
+
+  --color-overlay0: light-dark(var(--ctp-latte-overlay0), var(--ctp-mocha-overlay0));
+  --color-overlay0-rgb: light-dark(var(--ctp-latte-overlay0-rgb), var(--ctp-mocha-overlay0-rgb));
+  --color-overlay0-hsl: light-dark(var(--ctp-latte-overlay0-hsl), var(--ctp-mocha-overlay0-hsl));
+
+  --color-surface2: light-dark(var(--ctp-latte-surface2), var(--ctp-mocha-surface2));
+  --color-surface2-rgb: light-dark(var(--ctp-latte-surface2-rgb), var(--ctp-mocha-surface2-rgb));
+  --color-surface2-hsl: light-dark(var(--ctp-latte-surface2-hsl), var(--ctp-mocha-surface2-hsl));
+
+  --color-surface1: light-dark(var(--ctp-latte-surface1), var(--ctp-mocha-surface1));
+  --color-surface1-rgb: light-dark(var(--ctp-latte-surface1-rgb), var(--ctp-mocha-surface1-rgb));
+  --color-surface1-hsl: light-dark(var(--ctp-latte-surface1-hsl), var(--ctp-mocha-surface1-hsl));
+
+  --color-surface0: light-dark(var(--ctp-latte-surface0), var(--ctp-mocha-surface0));
+  --color-surface0-rgb: light-dark(var(--ctp-latte-surface0-rgb), var(--ctp-mocha-surface0-rgb));
+  --color-surface0-hsl: light-dark(var(--ctp-latte-surface0-hsl), var(--ctp-mocha-surface0-hsl));
+
+  --color-base: light-dark(var(--ctp-latte-base), var(--ctp-mocha-base));
+  --color-base-rgb: light-dark(var(--ctp-latte-base-rgb), var(--ctp-mocha-base-rgb));
+  --color-base-hsl: light-dark(var(--ctp-latte-base-hsl), var(--ctp-mocha-base-hsl));
+
+  --color-mantle: light-dark(var(--ctp-latte-mantle), var(--ctp-mocha-mantle));
+  --color-mantle-rgb: light-dark(var(--ctp-latte-mantle-rgb), var(--ctp-mocha-mantle-rgb));
+  --color-mantle-hsl: light-dark(var(--ctp-latte-mantle-hsl), var(--ctp-mocha-mantle-hsl));
+
+  --color-crust: light-dark(var(--ctp-latte-crust), var(--ctp-mocha-crust));
+  --color-crust-rgb: light-dark(var(--ctp-latte-crust-rgb), var(--ctp-mocha-crust-rgb));
+  --color-crust-hsl: light-dark(var(--ctp-latte-crust-hsl), var(--ctp-mocha-crust-hsl));
+  /*endregion*/
+
+
 }
 
 .active {
-  color: var(--ctp-latte-green);
+  color: var(--color-green);
 }

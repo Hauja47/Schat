@@ -1,6 +1,7 @@
 .input-container {
   --input-container_border-radius: 0.75em;
-  background-color: var(--ctp-mocha-base);
+  --input_border-color: light-dark(var(--ctp-mocha-base), var(--ctp-mocha-overlay0));
+  background-color: var(--input_border-color);
   border-radius: var(--input-container_border-radius);
   width: 100%;
 
@@ -8,30 +9,29 @@
 }
 
 .input-container input {
-  color: var(--ctp-latte-text);
-  background-color: var(--ctp-latte-crust);
+  color: var(--color-text);
+  background-color: var(--color-crust);
   border-radius: var(--input-container_border-radius);
+  border: 0.175em solid var(--input_border-color);
   width: 100%;
   padding: 0.5em 0.75em;
   font-size: 16px;
   transform: translateY(-0.4em);
   transition: transform 0.1s ease-in-out;
+  outline: none;
 }
 
 .input-container input:focus {
   transform: translateY(0);
   outline: none;
-  box-shadow: 0 0 2px 0 var(--ctp-mocha-base);
+  box-shadow: 0 0 2px 0 var(--color-base);
 }
 
 .input-container input:autofill,
 .input-container input:autofill:hover,
 .input-container input:autofill:focus,
 .input-container input:autofill:active {
-  box-shadow: 0 0 0 1000px var(--ctp-latte-crust) inset;
-  -webkit-text-fill-color: var(--ctp-latte-text);
+  box-shadow: 0 0 0 1000px var(--color-crust) inset;
+  -webkit-text-fill-color: var(--color-text);
 }
 
-/*.input-container input:hover:not(:focus) {*/
-/*  transform: translateY(-0.54em);*/
-/*}*/

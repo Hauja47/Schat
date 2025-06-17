@@ -1,31 +1,48 @@
 <app-layout>
+  @let isFormDataValid = email?.valid
+                      && username?.valid
+                      && password?.valid
+                      && confirmPassword?.valid;
+
   <p class="label">Sign up <span>to use our app</span></p>
 
-  <form action="" class="sign-up-form">
+  <form [formGroup]="signUpForm">
     <div class="text-input-container">
       <span>
-        <app-text-input-box name="email" placeholder="Email"></app-text-input-box>
-        <app-errors-list [errorList]="emailErrors"></app-errors-list>
+        <app-text-input-box name="email" placeholder="Email" formControlName="email"
+                            (input)="onEmailInput()"></app-text-input-box>
+        @if (email?.dirty && email?.touched) {
+          <app-errors-list [errorList]="emailErrors()"></app-errors-list>
+        }
       </span>
 
       <span>
-        <app-text-input-box name="username" placeholder="Username"></app-text-input-box>
-        <app-errors-list [errorList]="usernameErrors"></app-errors-list>
+        <app-text-input-box name="username" placeholder="Username" formControlName="username"
+                            (input)="onUsernameInput()"></app-text-input-box>
+        @if (username?.dirty && username?.touched) {
+          <app-errors-list [errorList]="usernameErrors()"></app-errors-list>
+        }
       </span>
 
       <span>
-        <app-text-input-box name="password" placeholder="Password" type="password"></app-text-input-box>
-        <app-errors-list [errorList]="passwordErrors"></app-errors-list>
+        <app-text-input-box name="password" placeholder="Password" type="password"
+                            formControlName="password" (input)="onPasswordInput()"></app-text-input-box>
+        @if (password?.dirty && password?.touched) {
+          <app-errors-list [errorList]="passwordErrors()"></app-errors-list>
+        }
       </span>
 
       <span>
-        <app-text-input-box name="confirm-password" placeholder="Confirm Password" type="password"></app-text-input-box>
-        <app-errors-list [errorList]="confirmPasswordErrors"></app-errors-list>
+        <app-text-input-box name="confirm-password" placeholder="Confirm Password" type="password"
+                            formControlName="confirmPassword" (input)="onConfirmPasswordInput()"></app-text-input-box>
+        @if (confirmPassword?.dirty && confirmPassword?.touched) {
+          <app-errors-list [errorList]="confirmPasswordErrors()"></app-errors-list>
+        }
       </span>
     </div>
 
     <span>
-      <app-button>
+      <app-button [disabled]="!(isFormDataValid ?? false)">
         Sign up
       </app-button>
       <p class="sign-in-label">Already have account? <a routerLink="/auth/sign-in" routerLinkActive="active"

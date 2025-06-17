@@ -1,5 +1,6 @@
 import {ValidationErrors} from '@angular/forms';
 import {Errors} from '../models/errors.model';
+import {ERROR_MESSAGES} from '../constant/error-message';
 
 export type ErrorTypes =
   | 'required'
@@ -7,11 +8,6 @@ export type ErrorTypes =
   | 'minlength'
   | 'invalidDate'
   | 'invalidYear';
-
-export const ERROR_MESSAGES: { [key: string]: (...args: any) => string } = {
-  required: (formControlName: string) => `${formControlName} is required.`,
-  email: () => `This is not a valid email address.`
-};
 
 export function toError(validationErrors: ValidationErrors | null | undefined, ...args: any): Errors {
   let errors: Errors = {
